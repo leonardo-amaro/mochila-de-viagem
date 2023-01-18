@@ -1,5 +1,5 @@
 const form = document.querySelector("#novoItem");
-const lista = document.querySelector(".lista");
+const lista = document.querySelector("#lista");
 
 function criarItem(quantidade, nome) {
   let li = document.createElement("li");
