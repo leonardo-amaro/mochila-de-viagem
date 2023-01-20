@@ -2,6 +2,7 @@
 const form = document.querySelector("#novoItem");
 const lista = document.querySelector("#lista");
 const itens = JSON.parse(localStorage.getItem("itens")) || []; // Converter a string do Local Storage em JSON (parse) e armazenar
+const deletar = document.querySelectorAll("[data-deletar]");
 
 /* -Funcionalidades--------- */
 function armazenarItem(quantidade, nome) {
@@ -17,7 +18,7 @@ function armazenarItem(quantidade, nome) {
 function criarItem(quantidade, nome) {
   let li = document.createElement("li");
   li.classList.add("item");
-  li.innerHTML = `<strong>${quantidade}</strong>${nome}`;
+  li.innerHTML = `<strong>${quantidade}</strong>${nome}<img src="../svg/trash.svg" alt="ícone lixeira" data-deletar>`;
   lista.appendChild(li);
 };
 
@@ -26,6 +27,10 @@ function atualizarLista() {
   itens.forEach(elemento => {
     criarItem(elemento.quantidade, elemento.nome)
   })
+};
+
+function deletarItem() {
+  
 };
 
 /* -Eventos--------- */
