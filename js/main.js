@@ -2,7 +2,6 @@
 const form = document.querySelector("#novoItem");
 const lista = document.querySelector("#lista");
 const itens = JSON.parse(localStorage.getItem("itens")) || []; // Converter a string do Local Storage em JSON (parse) e armazenar
-const deletar = document.querySelectorAll("[data-deletar]");
 
 /* -Funcionalidades--------- */
 function armazenarItem(quantidade, nome) {
@@ -27,10 +26,6 @@ function atualizarLista() {
   itens.forEach(elemento => {
     criarItem(elemento.quantidade, elemento.nome)
   })
-};
-
-function deletarItem() {
-  
 };
 
 /* -Eventos--------- */
