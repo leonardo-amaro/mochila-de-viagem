@@ -1,45 +1,41 @@
-/* -Referências--------- */
-const form = document.querySelector("#novoItem");
-const lista = document.querySelector("#lista");
-const itens = JSON.parse(localStorage.getItem("itens")) || []; // Converter a string do Local Storage em JSON (parse) e armazenar
+const form = document.getElementById("novoItem") 
+const lista = document.getElementById("lista")
+const itens = JSON.parse(localStorage.getItem("itens")) || []  
 
-/* -Funcionalidades--------- */
-function armazenarItem(quantidade, nome) {
-  const itemAtual = {
-    "nome": nome,
-    "quantidade": quantidade
-  };
+itens.forEach( (elemento) => {    
+    criaElemento(elemento)
+} )
 
-  itens.push(itemAtual);
-  localStorage.setItem("itens", JSON.stringify(itens)) // Converter o array de objetos em string para armazenar no Local Storage
-};
+form.addEventListener("submit", (evento) => {  
+    evento.preventDefault()
 
-function criarItem(quantidade, nome) {
-  let li = document.createElement("li");
-  li.classList.add("item");
-  li.innerHTML = `<strong>${quantidade}</strong>${nome}<img src="../svg/trash.svg" alt="ícone lixeira" data-deletar>`;
-  lista.appendChild(li);
-};
+    const nome = evento.target.elements['nome']
+    const quantidade = evento.target.elements['quantidade']
 
-function atualizarLista() {
-  lista.innerHTML = "";
-  itens.forEach(elemento => {
-    criarItem(elemento.quantidade, elemento.nome)
-  })
-};
+    const itemAtual = {
+    "nome": nome.value,
+    "quantidade": quantidade.value
+    }
 
-/* -Eventos--------- */
-document.addEventListener("DOMContentLoaded", () => atualizarLista());
+    criaElemento(itemAtual)
 
-form.addEventListener("submit", evento => {
-  evento.preventDefault(); // Evita que o formulário seja enviado e "resetado" antes de ser usado
+    itens.push(itemAtual)
 
-  const quantidade = evento.target.elements["quantidade"];
-  const nome = evento.target.elements["nome"];
+    localStorage.setItem("itens", JSON.stringify(itens))
 
-  armazenarItem(quantidade.value, nome.value);
-  atualizarLista();
+    nome.value = ""
+    quantidade.value = ""
+})
 
-  quantidade.value = ""; // Limpar campo "quantidade"
-  nome.value = "" // Limpar campo "nome"
-});
+function criaElemento(item) {  
+    const novoItem = document.createElement('li')
+    novoItem.classList.add("item")
+
+    const numeroItem = document.createElement('strong')
+    numeroItem.innerHTML = item.quantidade
+    novoItem.appendChild(numeroItem)
+
+    novoItem.innerHTML += item.nome
+
+    lista.appendChild(novoItem)
+}
