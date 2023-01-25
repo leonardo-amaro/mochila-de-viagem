@@ -4,6 +4,19 @@ const itens = JSON.parse(localStorage.getItem("itens")) || [];
 
 itens.forEach((elemento) => criaElemento(elemento));
 
+function criaElemento(item) {
+  const novoItem = document.createElement("li");
+  novoItem.classList.add("item");
+
+  const numeroItem = document.createElement("strong");
+  numeroItem.innerHTML = item.quantidade;
+  novoItem.appendChild(numeroItem);
+
+  novoItem.innerHTML += item.nome;
+
+  lista.appendChild(novoItem);
+};
+
 form.addEventListener("submit", (evento) => {
   evento.preventDefault();
 
@@ -24,16 +37,3 @@ form.addEventListener("submit", (evento) => {
   nome.value = "";
   quantidade.value = "";
 });
-
-function criaElemento(item) {
-  const novoItem = document.createElement("li");
-  novoItem.classList.add("item");
-
-  const numeroItem = document.createElement("strong");
-  numeroItem.innerHTML = item.quantidade;
-  novoItem.appendChild(numeroItem);
-
-  novoItem.innerHTML += item.nome;
-
-  lista.appendChild(novoItem);
-}
