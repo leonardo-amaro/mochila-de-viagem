@@ -24,20 +24,21 @@ function atualizaElemento(item) {
 
 form.addEventListener("submit", (evento) => {
   evento.preventDefault(); // Evita que o formulário seja enviado e "resetado" antes de ser usado
-
+  
   const nome = evento.target.elements["nome"];
   const quantidade = evento.target.elements["quantidade"];
-
+  
   const existe = itens.find((elemento) => elemento.nome === nome.value);
-
+  
   const itemAtual = {
     nome: nome.value,
     quantidade: quantidade.value,
   };
-
+  
   if (existe) {
     itemAtual.id = existe.id;
     atualizaElemento(itemAtual);
+    itens[existe.id] = itemAtual; // Atualiza o ítem no Array que vai para o Local Storage
   } else {
     itemAtual.id = itens.length;
     criaElemento(itemAtual);
